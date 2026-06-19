@@ -82,6 +82,9 @@ jobs:
           pnpm prisma generate
           pnpm prisma db push
 
+      - name: Seed E2E data
+        run: pnpm tsx scripts/seed-e2e.ts
+
       - name: Run E2E tests
         run: pnpm test:e2e
         env:
