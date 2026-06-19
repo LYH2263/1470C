@@ -31,9 +31,19 @@ export interface ArticleListResponse {
   pageSize: number;                              // 每页条数
 }
 
+export interface ErrorInfo {
+  code: string;
+  message: string;
+  requestId?: string;
+  details?: Record<string, unknown>;
+}
+
 export interface ApiResponse<T = unknown> {
   success: boolean;
   data?: T;
   message?: string;
   error?: string;
+  errorCode?: string;
+  errorInfo?: ErrorInfo;
+  requestId?: string;
 }
