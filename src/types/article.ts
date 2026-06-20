@@ -1,5 +1,11 @@
 // 文章数据类型定义
 
+import type { ErrorInfo } from '@/lib/errors';
+import type { UnifiedApiResponse } from '@/lib/middleware';
+
+export type { ErrorInfo };
+export type ApiResponse<T = unknown> = UnifiedApiResponse<T>;
+
 export interface Article {
   id: string;                                    // 唯一标识符（UUID）
   title: string;                                 // 标题（必填）
@@ -29,21 +35,4 @@ export interface ArticleListResponse {
   total: number;                                 // 总条数
   page: number;                                  // 当前页码
   pageSize: number;                              // 每页条数
-}
-
-export interface ErrorInfo {
-  code: string;
-  message: string;
-  requestId?: string;
-  details?: Record<string, unknown>;
-}
-
-export interface ApiResponse<T = unknown> {
-  success: boolean;
-  data?: T;
-  message?: string;
-  error?: string;
-  errorCode?: string;
-  errorInfo?: ErrorInfo;
-  requestId?: string;
 }

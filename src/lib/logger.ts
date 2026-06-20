@@ -164,9 +164,25 @@ export function logApiError(
   durationMs: number,
   statusCode: number
 ): void {
+  if (statusCode < 500) {
+    logger.warn(
+      `API Error: ${appError.code} - ${appError.message}`,
+      {
+        method: ctx.method,
+        path: ctx.path,
+        statusCode,
+        durationMs,
+        errorCode: appError.code,
+        userId: ctx.user?.userId,
+      },
+      ctx.requestId
+    );
+    return;
+  }
+
   const entry: ErrorLogEntry = {
     timestamp: new Date().toISOString(),
-    level: statusCode >= 500 ? 'error' : 'warn',
+    level: 'error',
     message: `API Error: ${appError.code} - ${appError.message}`,
     requestId: ctx.requestId,
     method: ctx.method,

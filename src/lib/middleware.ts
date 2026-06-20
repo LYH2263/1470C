@@ -72,8 +72,8 @@ export function buildRequestContext(req: AuthenticatedRequest): RequestContext {
   };
 }
 
-export function sendErrorResponse(
-  res: NextApiResponse<UnifiedApiResponse>,
+export function sendErrorResponse<T = unknown>(
+  res: NextApiResponse<UnifiedApiResponse<T>>,
   appError: AppError
 ): void {
   const statusCode = appError.statusCode;
